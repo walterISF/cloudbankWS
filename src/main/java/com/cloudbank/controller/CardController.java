@@ -23,4 +23,9 @@ public class CardController {
     public List<Card> getCards (@RequestParam Integer clientId){
         return cardService.findCards(clientId);
     }
+
+    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
+    public Boolean cancelCard(@RequestParam String cardNumber, @RequestParam Integer registration){
+        return cardService.cancelCard(cardNumber, registration);
+    }
 }

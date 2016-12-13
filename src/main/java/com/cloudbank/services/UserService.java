@@ -1,6 +1,9 @@
 package com.cloudbank.services;
 
+import com.cloudbank.dtos.UserDTO;
+import com.cloudbank.entities.Employee;
 import com.cloudbank.entities.User;
+import com.cloudbank.repositories.EmployeeRepository;
 import com.cloudbank.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +16,16 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-    public User authUser(Integer regEmployee, String userPassword){
-        return userRepository.findByRegEmployeeAndUserPassword(regEmployee, userPassword);
+    public UserDTO authUser(Integer regEmployee, String userPassword){
+
+        User user = userRepository.findByRegEmployeeAndUserPassword(regEmployee, userPassword);
+        Employee employee = employeeRepository.findByRegistration(user.getRegEmployee());
+
+        UserDTO userDTO = new UserDTO(employee, user);
+
+        return userDTO;
     }
 }

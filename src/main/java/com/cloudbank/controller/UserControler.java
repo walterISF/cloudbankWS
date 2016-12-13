@@ -1,5 +1,6 @@
 package com.cloudbank.controller;
 
+import com.cloudbank.dtos.UserDTO;
 import com.cloudbank.entities.User;
 import com.cloudbank.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserControler {
     private UserService userService;
 
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public User authUser(@RequestParam Integer regEmployee, @RequestParam String userPassword){
+    public UserDTO authUser(@RequestParam Integer regEmployee, @RequestParam String userPassword){
         return userService.authUser(regEmployee, userPassword);
     }
 }
